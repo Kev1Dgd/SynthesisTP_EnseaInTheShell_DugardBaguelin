@@ -6,9 +6,10 @@ void repl() {
     ssize_t bytes_read;
     int status;
     size_t command_length = 0; // Pour suivre la longueur de la commande lue
+    char prompt[64] = "enseash % ";
 
     while (1) {
-        print("enseash % ");
+        print(prompt);
         command_length = 0; // Réinitialiser la longueur de la commande
 
         // Lecture de la commande
@@ -31,6 +32,10 @@ void repl() {
         }
 
         pid_t pid = fork();
+        
+        // char a[30];
+        // sprintf(a, "pid : %d\n", pid);
+        // print(a);
 
         if (pid < 0) {
             print("Fork failed\n");
@@ -48,6 +53,14 @@ void repl() {
         } else {
             // Processus parent : attendre la fin de la commande
             wait(&status);
+
+            if (WIFEXITED(status)) { // fin normal
+                int exit_code = WEXITSTATUS(status);
+                sprintf(prompt, "enseash [exit:%d] %% ", exit_code);
+            } else if (WIFSIGNALED(status)) { // fin décidée par un signal
+                int signal_number = WTERMSIG(status);
+                sprintf(prompt, "enseash [sign:%d] %% ", signal_number);
+            }
         }
     }
 }
