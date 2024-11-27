@@ -1,4 +1,5 @@
 #include "../include/repl.h"
+#include "../include/detect_exit.h"
 
 void repl() {
     char command[CMD_BUFFER_SIZE];
@@ -25,6 +26,10 @@ void repl() {
             }
         }
 
+        if (detect_exit(bytes_read, command) == 1) {
+            break;
+        }
+
         pid_t pid = fork();
 
         if (pid < 0) {
@@ -34,7 +39,7 @@ void repl() {
 
         if (pid == 0) {
             // Processus enfant : exécuter la commande
-            if (strlen(command) == 0) {
+            if (strcmp(command, "") == 0) {
                 execl("/bin/sh", "sh", "-c", "date", (char *)NULL);
             } else {
                 execl("/bin/sh", "sh", "-c", command, (char *)NULL);
