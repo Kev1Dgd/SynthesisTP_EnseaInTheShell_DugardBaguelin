@@ -1,5 +1,6 @@
 #include "../include/repl.h"
 #include "../include/detect_exit.h"
+#include "../include/display_exit_status.h"
 
 void repl() {
     char command[CMD_BUFFER_SIZE];
@@ -53,14 +54,7 @@ void repl() {
         } else {
             // Processus parent : attendre la fin de la commande
             wait(&status);
-
-            if (WIFEXITED(status)) { // fin normal
-                int exit_code = WEXITSTATUS(status);
-                sprintf(prompt, "enseash [exit:%d] %% ", exit_code);
-            } else if (WIFSIGNALED(status)) { // fin décidée par un signal
-                int signal_number = WTERMSIG(status);
-                sprintf(prompt, "enseash [sign:%d] %% ", signal_number);
-            }
+            display_exit_status(status, prompt);
         }
     }
 }
