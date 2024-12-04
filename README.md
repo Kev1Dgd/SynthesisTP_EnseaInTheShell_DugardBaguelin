@@ -93,9 +93,9 @@ L'exécutable généré sera nommé `enseash`. Pour lancer le shell :
 
 ## Auteurs
 
-Ce projet a été réalisé en binôme par :
-- **[Nom Étudiant 1]**
-- **[Nom Étudiant 2]**
+Ce projet a été réalisé en binôme par deux élèves en classe **2G2TD1TP1**:
+- **Baguelin Benoit**
+- **Dugard Kevin**
 
 ## Remerciements
 
