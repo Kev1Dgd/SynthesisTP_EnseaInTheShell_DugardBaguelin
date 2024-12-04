@@ -2,7 +2,10 @@
 #include "../include/detect_exit.h"
 #include "../include/display_exit_status.h"
 
+#include <time.h>
+
 void repl() {
+    struct timespec timer_start, timer_finish;    
     char command[CMD_BUFFER_SIZE];
     ssize_t bytes_read;
     int status;
@@ -32,6 +35,7 @@ void repl() {
             break;
         }
 
+        clock_gettime(CLOCK_REALTIME, &timer_start);
         pid_t pid = fork();
         
         // char a[30];
@@ -54,7 +58,14 @@ void repl() {
         } else {
             // Processus parent : attendre la fin de la commande
             wait(&status);
+            clock_gettime(CLOCK_REALTIME, &timer_finish);
             display_exit_status(status, prompt);
         }
+
+        long seconds = timer_finish.tv_sec - timer_start.tv_sec;
+        long nanoseconds = timer_finish.tv_nsec - timer_start.tv_nsec;
+        int elapsed_ms = (int)((seconds + nanoseconds * 1e-9) * 1000);
+        
+        sprintf(prompt, "enseash [exit:%d|%dms] %% ", status, elapsed_ms);
     }
 }
