@@ -1,11 +1,12 @@
 #include "../include/repl.h"
 #include "../include/detect_exit.h"
-#include "../include/display_exit_status.h"
+#include "../include/get_exit_status.h"
+#include "../include/calculate_duration.h"
 
-#include <time.h>
 
 void repl() {
-    struct timespec timer_start, timer_finish;    
+    struct timespec timer_start, timer_finish;  
+    int status_code;  
     char command[CMD_BUFFER_SIZE];
     ssize_t bytes_read;
     int status;
@@ -59,13 +60,10 @@ void repl() {
             // Parent process: wait for command to complete
             wait(&status);
             clock_gettime(CLOCK_REALTIME, &timer_finish);
-            display_exit_status(status, prompt);
+            status_code = get_exit_status(status);
         }
 
-        long seconds = timer_finish.tv_sec - timer_start.tv_sec;
-        long nanoseconds = timer_finish.tv_nsec - timer_start.tv_nsec;
-        int elapsed_ms = (int)((seconds + nanoseconds * 1e-9) * 1000);
-        
-        sprintf(prompt, "enseash [exit:%d|%dms] %% ", status, elapsed_ms);
+        int elapsed_ms = calculate_duration(timer_finish, timer_start); 
+        sprintf(prompt, "enseash [exit:%d|%dms] %% ", status_code, elapsed_ms);
     }
 }

@@ -44,12 +44,12 @@ L'architecture du projet suit une organisation claire pour séparer les fichiers
 ```
 ├── include/
 │   ├── detect_exit.h
-│   ├── display_exit_status.h
+│   ├── get_exit_status.h
 │   ├── repl.h
 │   ├── utils.h
 ├── src/
 │   ├── detect_exit.c
-│   ├── display_exit_status.c
+│   ├── get_exit_status.c
 │   ├── enseash.c
 │   ├── repl.c
 │   ├── utils.c
