@@ -1,0 +1,6 @@
+total 16
+drwxrwxr-x 2 user user 4096 Dec  4 13:08 include
+drwxrwxr-x 2 user user 4096 Dec  4 13:38 output
+-rw-rw-r-- 1 user user 3686 Dec  4 13:11 README.md
+drwxrwxr-x 2 user user 4096 Dec  4 13:05 src
+-rw-rw-r-- 1 user user    0 Dec  4 13:39 test.txt
