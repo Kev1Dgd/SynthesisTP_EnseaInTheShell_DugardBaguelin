@@ -1,8 +1,12 @@
 #include "../include/repl.h"
 #include "../include/detect_exit.h"
-#include "../include/display_exit_status.h"
+#include "../include/get_exit_status.h"
+#include "../include/calculate_duration.h"
+
 
 void repl() {
+    struct timespec timer_start, timer_finish;  
+    int status_code;  
     char command[CMD_BUFFER_SIZE];
     ssize_t bytes_read;
     int status;
@@ -32,6 +36,7 @@ void repl() {
             break;
         }
 
+        clock_gettime(CLOCK_REALTIME, &timer_start);
         pid_t pid = fork();
         
         // char a[30];
@@ -54,7 +59,11 @@ void repl() {
         } else {
             // Parent process: wait for command to complete
             wait(&status);
-            display_exit_status(status, prompt);
+            clock_gettime(CLOCK_REALTIME, &timer_finish);
+            status_code = get_exit_status(status);
         }
+
+        int elapsed_ms = calculate_duration(timer_finish, timer_start); 
+        sprintf(prompt, "enseash [exit:%d|%dms] %% ", status_code, elapsed_ms);
     }
 }

@@ -44,13 +44,19 @@ L'architecture du projet suit une organisation claire pour séparer les fichiers
 ```
 ├── include/
 │   ├── detect_exit.h
+<<<<<<< HEAD
 │   ├── calculate_duration.h
+=======
+>>>>>>> 8422a4a14326f07b24178a9ed0f02762119d1f6d
 │   ├── get_exit_status.h
 │   ├── repl.h
 │   ├── utils.h
 ├── src/
 │   ├── detect_exit.c
+<<<<<<< HEAD
 │   ├── calculate_duration.c
+=======
+>>>>>>> 8422a4a14326f07b24178a9ed0f02762119d1f6d
 │   ├── get_exit_status.c
 │   ├── enseash.c
 │   ├── repl.c
