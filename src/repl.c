@@ -9,22 +9,22 @@ void repl() {
     char command[CMD_BUFFER_SIZE];
     ssize_t bytes_read;
     int status;
-    size_t command_length = 0; // Pour suivre la longueur de la commande lue
+    size_t command_length = 0; // To track the length of the command read
     char prompt[64] = "enseash % ";
 
     while (1) {
         print(prompt);
-        command_length = 0; // Réinitialiser la longueur de la commande
+        command_length = 0; // Reset order length
 
-        // Lecture de la commande
+        // Reading the order
         while ((bytes_read = read(STDIN_FILENO, command + command_length, 1)) > 0) {
-            // Vérifier la fin de la commande avec '\n'
+            // Check end of command with '\n'.
             if (command[command_length] == '\n') {
-                command[command_length] = '\0'; // Terminer la chaîne
+                command[command_length] = '\0'; // End chain
                 break;
             }
             command_length++;
-            // Limiter la commande à CMD_BUFFER_SIZE
+            // Limit command to CMD_BUFFER_SIZE
             if (command_length >= CMD_BUFFER_SIZE - 1) {
                 command[CMD_BUFFER_SIZE - 1] = '\0';
                 break;
@@ -48,7 +48,7 @@ void repl() {
         }
 
         if (pid == 0) {
-            // Processus enfant : exécuter la commande
+            // Child process: execute command
             if (strcmp(command, "") == 0) {
                 execl("/bin/sh", "sh", "-c", "date", (char *)NULL);
             } else {
@@ -56,7 +56,7 @@ void repl() {
             }
             exit(0);
         } else {
-            // Processus parent : attendre la fin de la commande
+            // Parent process: wait for command to complete
             wait(&status);
             clock_gettime(CLOCK_REALTIME, &timer_finish);
             display_exit_status(status, prompt);
