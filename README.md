@@ -1,7 +1,3 @@
-Voici un exemple de README pour votre projet **enseash** :
-
----
-
 # ENSEA in the Shell (enseash)
 
 ## Introduction
@@ -99,5 +95,5 @@ Ce projet a été réalisé en binôme par deux élèves en classe **2G2TD1TP1**
 
 ## Remerciements
 
-Merci à **C. Barès**, **N. Papazoglou** et **G. Renton**pour l'encadrement pédagogique et les ressources fournies.
+Merci à **C. Barès**, **N. Papazoglou** et **G. Renton** pour l'encadrement pédagogique et les ressources fournies.
 
