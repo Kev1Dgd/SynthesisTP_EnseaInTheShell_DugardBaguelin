@@ -33,7 +33,7 @@ Les principales fonctionnalités implémentées sont les suivantes :
 8. **Gestion des pipes** :
    - Support des redirections avec `|` pour connecter plusieurs commandes.
 
-9. **Exécution en arrière-plan** :
+9. **Exécution en arrière-plan (pas opérationnel à 100%)** :
    - Support des commandes exécutées avec `&`.
    - Gestion des processus en arrière-plan avec un affichage des informations pertinentes (numéro du processus, temps d'exécution, etc.).
 
@@ -44,12 +44,14 @@ L'architecture du projet suit une organisation claire pour séparer les fichiers
 ```
 ├── include/
 │   ├── detect_exit.h
-│   ├── display_exit_status.h
+│   ├── calculate_duration.h
+│   ├── get_exit_status.h
 │   ├── repl.h
 │   ├── utils.h
 ├── src/
 │   ├── detect_exit.c
-│   ├── display_exit_status.c
+│   ├── calculate_duration.c
+│   ├── get_exit_status.c
 │   ├── enseash.c
 │   ├── repl.c
 │   ├── utils.c
@@ -60,19 +62,6 @@ L'architecture du projet suit une organisation claire pour séparer les fichiers
 - **`include/`** : Contient tous les fichiers d'en-tête déclarant les fonctions utilisées dans les fichiers sources.
 - **`src/`** : Contient les fichiers d'implémentation des fonctionnalités décrites ci-dessus.
 
-## Compilation et exécution
-
-Pour compiler le projet, utilisez le fichier Makefile fourni (à créer si nécessaire) :
-
-```bash
-make
-```
-
-L'exécutable généré sera nommé `enseash`. Pour lancer le shell :
-
-```bash
-./enseash
-```
 
 ## Instructions d'utilisation
 
