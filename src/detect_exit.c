@@ -1,7 +1,7 @@
 #include "../include/detect_exit.h"
 
 int detect_exit(ssize_t bytes_read, char *command) {
-    // Détection d'un CTRL+D
+    // CTRL+D Detection
     if (bytes_read == 0) {
         print("\nBye bye...\n");
         return 1;
