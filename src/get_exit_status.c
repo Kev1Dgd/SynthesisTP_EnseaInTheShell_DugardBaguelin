@@ -1,10 +1,10 @@
 
 #include "../include/get_exit_status.h"
 
-int get_exit_status(int status) {
+void get_exit_status(int status, char* buffer) {
     if (WIFEXITED(status)) { // Normal end
-        return WEXITSTATUS(status);
+        sprintf(buffer, "exit:%d", WEXITSTATUS(status));
     } else if (WIFSIGNALED(status)) { // End decided by a signal
-        return WTERMSIG(status);
+        sprintf(buffer, "sign:%d", WTERMSIG(status));
     }
 }

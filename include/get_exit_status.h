@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int get_exit_status(int);
+void get_exit_status(int, char*);
 
 #endif

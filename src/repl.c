@@ -6,7 +6,7 @@
 
 void repl() {
     struct timespec timer_start, timer_finish;  
-    int status_code;  
+    char exit_status[30];  
     char command[CMD_BUFFER_SIZE];
     ssize_t bytes_read;
     int status;
@@ -39,9 +39,9 @@ void repl() {
         clock_gettime(CLOCK_REALTIME, &timer_start);
         pid_t pid = fork();
         
-        // char a[30];
-        // sprintf(a, "pid : %d\n", pid);
-        // print(a);
+        char a[30];
+        sprintf(a, "pid : %d\n", pid);
+        print(a);
 
         if (pid < 0) {
             print("Fork failed\n");
@@ -60,10 +60,10 @@ void repl() {
             // Parent process: wait for command to complete
             wait(&status);
             clock_gettime(CLOCK_REALTIME, &timer_finish);
-            status_code = get_exit_status(status);
+            get_exit_status(status, exit_status);
         }
 
         int elapsed_ms = calculate_duration(timer_finish, timer_start); 
-        sprintf(prompt, "enseash [exit:%d|%dms] %% ", status_code, elapsed_ms);
+        sprintf(prompt, "enseash [%s|%dms] %% ", exit_status, elapsed_ms);
     }
 }
